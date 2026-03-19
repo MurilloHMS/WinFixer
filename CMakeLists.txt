@@ -7,7 +7,9 @@ include_directories(include)
 
 add_executable(WinFixer
         src/main.c
-        src/ui.c)
+        src/ui.c
+        src/modules/apps.c
+)
 
 target_link_libraries(WinFixer
         ws2_32
