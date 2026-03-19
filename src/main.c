@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <conio.h>
 #include "ui.h"
+#include "modules/apps.h"
 
 int main(void) {
     const char *items[] = {
@@ -12,12 +13,16 @@ int main(void) {
         int choice = ui_run_menu("Menu Principal", items, 2, NULL);
         if (choice == -1 || choice == 1) break;
 
-        ui_clear();
-        ui_print_header("Modulo selecionado");
-        printf("  Voce escolheu: %s\n", items[choice]); // ? \n dentro de string, não \\n
-        ui_print_footer("[ENTER] Voltar");
-
-        _getch();
+        switch (choice) {
+            case 0: menu_apps(); break;
+        }
     }
+
+    ui_clear();
+    ui_set_color(11,0);
+    printf("\n  WinFixer encerrado.\n");
+    ui_reset_color();
+    _getch();
+
     return 0;
 }
