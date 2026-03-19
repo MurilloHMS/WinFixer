@@ -91,3 +91,58 @@ int ui_run_menu(const char *title, const char **items, int count, const char *fo
         }
     }
 }
+
+
+int ui_run_checklist(const char *title, const char **items, int count, int *selected_mask, const char *footer) {
+    int cursor = 0;
+    int key;
+
+#define PAGE_SIZE 15
+
+    while (1) {
+        ui_clear();
+        ui_hide_cursor();
+        ui_print_header(title);
+
+        int page_start = (cursor / PAGE_SIZE) * PAGE_SIZE;
+        int page_end   = page_start + PAGE_SIZE;
+        if (page_end > count) page_end = count;
+
+        for (int i = page_start; i < page_end; i++) {
+            if (i == cursor) ui_set_color(0, 11);
+            else             ui_reset_color();
+
+            printf("  [%c] %-46s\n",
+                   selected_mask[i] ? 'X' : ' ',
+                   items[i]);
+        }
+
+        ui_reset_color();
+
+        int total_pages  = (count + PAGE_SIZE - 1) / PAGE_SIZE;
+        int current_page = (cursor / PAGE_SIZE) + 1;
+        ui_set_color(8, 0);
+        printf("\n  Pagina %d/%d  |  Item %d/%d\n", current_page, total_pages, cursor + 1, count);
+        ui_reset_color();
+
+        ui_print_footer(footer ? footer :
+            "[cima/baixo] Navegar    [ESPACO] Marcar    [ENTER] Confirmar    [ESC] Cancelar");
+
+        key = _getch();
+        if (key == 0 || key == 224) {
+            key = _getch();
+            if (key == KEY_UP   && cursor > 0)        cursor--;
+            if (key == KEY_DOWN && cursor < count - 1) cursor++;
+        } else if (key == KEY_SPACE) {
+            selected_mask[cursor] = !selected_mask[cursor];
+        } else if (key == KEY_ENTER) {
+            ui_show_cursor();
+            return 1;
+        } else if (key == KEY_ESC) {
+            ui_show_cursor();
+            return 0;
+        }
+    }
+}
+
+
