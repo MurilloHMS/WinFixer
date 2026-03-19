@@ -3,4 +3,17 @@ project(WinFixer C)
 
 set(CMAKE_C_STANDARD 17)
 
-add_executable(WinFixer main.c)
+include_directories(include)
+
+add_executable(WinFixer
+        src/main.c
+        src/ui.c)
+
+target_link_libraries(WinFixer
+        ws2_32
+        iphlpapi
+        psapi
+        pdh
+        ole32
+        shell32
+)
