@@ -9,6 +9,7 @@ add_executable(WinFixer
         src/main.c
         src/ui.c
         src/modules/apps.c
+        src/modules/disk.c
 )
 
 target_link_libraries(WinFixer
