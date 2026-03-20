@@ -1,6 +1,8 @@
 #ifndef WINDIXER_DISK_H
 #define WINDIXER_DISK_H
 
+#include <windows.h>
+
 #define MAX_VOLUMES 26
 
 typedef struct {
