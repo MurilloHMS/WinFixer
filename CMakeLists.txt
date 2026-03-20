@@ -10,6 +10,7 @@ add_executable(WinFixer
         src/ui.c
         src/modules/apps.c
         src/modules/disk.c
+        src/modules/sysinfo.c
 )
 
 target_link_libraries(WinFixer
