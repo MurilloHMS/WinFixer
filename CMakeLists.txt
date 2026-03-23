@@ -11,6 +11,7 @@ add_executable(WinFixer
         src/modules/apps.c
         src/modules/disk.c
         src/modules/sysinfo.c
+        src/modules/excel.c
 )
 
 target_link_libraries(WinFixer
